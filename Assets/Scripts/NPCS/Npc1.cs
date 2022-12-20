@@ -22,7 +22,7 @@ public class Npc1 : MonoBehaviour
                // dialogue will appear
                 other.gameObject.GetComponent<PlayerData>().DialogueNumber = 1;
                 DialogueObject.SetActive(true);
-                rigid.enabled = false; // to not move when we are reading the dialogue
+                //rigid.enabled = false; // to not move when we are reading the dialogue
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 //triggerText.SetActive(false)
