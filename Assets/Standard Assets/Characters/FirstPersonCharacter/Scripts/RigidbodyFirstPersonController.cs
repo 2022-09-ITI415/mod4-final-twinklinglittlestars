@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -8,6 +9,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+        public Text countText;
+        public GameObject winTextObject;
+        private int count;
         [Serializable]
         public class MovementSettings
         {
@@ -121,6 +125,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             m_RigidBody = GetComponent<Rigidbody>();
+            count = 0;
+            SetCountText();
+            winTextObject.SetActive(false);
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
         }
@@ -136,6 +143,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        void SetCountText()
+        {
+            countText.text = "Bunnies Found: " + (count);
+            if(count >= 3)
+            {
+                winTextObject.SetActive(true);
+            }
+        }
 
         private void FixedUpdate()
         {
@@ -261,5 +276,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jumping = false;
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bunny")) 
+        {
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            SetCountText();
+        }
+    }
     }
 }
