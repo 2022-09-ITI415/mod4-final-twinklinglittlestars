@@ -9,6 +9,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+        public Text timerText;
+        private float startTimer;
+        public bool finished = false;
+
         public Text countText;
         public GameObject winTextObject;
         private int count;
@@ -124,6 +128,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Start()
         {
+           // startTimer = Time.time;
             m_RigidBody = GetComponent<Rigidbody>();
             count = 0;
             SetCountText();
@@ -135,6 +140,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
+            float t = Time.time - startTimer;
+
+            string minutes = "Time: " + ((int) t / 60).ToString();
+            string seconds = (t % 60).ToString("f2");
+
+            timerText.text = minutes + ":" + seconds;
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
@@ -143,12 +154,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+
+        void SetTimerText()
+        {
+            if(count >= 3)
+            {
+                finished = true;
+
+            }
+        }
         void SetCountText()
         {
             countText.text = "Bunnies Found: " + (count);
             if(count >= 3)
             {
                 winTextObject.SetActive(true);
+                finished = true;
             }
         }
 
