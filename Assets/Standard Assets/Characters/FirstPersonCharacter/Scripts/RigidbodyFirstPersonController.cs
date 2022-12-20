@@ -184,7 +184,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         void SetCountText() 
         {
             countText.text = "Bunnies Found: " + (count);
-            if(count >= 4)
+            if(count >= 5)
             {
                 winTextObject.SetActive(true);
                 //finished = true;
@@ -323,7 +323,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             other.gameObject.SetActive(false);
             count = count + 1;
             SetCountText();
-            if(count == 4)
+            if(count == 5)
             {
                 finished = true;
                 Time.timeScale = 0;
