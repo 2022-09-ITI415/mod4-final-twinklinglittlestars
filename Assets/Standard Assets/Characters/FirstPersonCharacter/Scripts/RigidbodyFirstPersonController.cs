@@ -155,18 +155,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        void SetTimerText()
+        /*void SetTimerText()
         {
-            if(count >= 3)
+            if(count >= 4)
             {
                 finished = true;
 
             }
-        }
+        }*/
         void SetCountText()
         {
             countText.text = "Bunnies Found: " + (count);
-            if(count >= 3)
+            if(count >= 4)
             {
                 winTextObject.SetActive(true);
                 finished = true;

@@ -25,7 +25,7 @@ public class Npc1 : MonoBehaviour
                 //rigid.enabled = false; // to not move when we are reading the dialogue
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                //triggerText.SetActive(false)
+                triggerText.SetActive(false);
             }
         }
     }
