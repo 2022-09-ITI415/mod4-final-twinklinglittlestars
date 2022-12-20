@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Loader
+  - Bunny
   layers:
   - Default
   - TransparentFX
