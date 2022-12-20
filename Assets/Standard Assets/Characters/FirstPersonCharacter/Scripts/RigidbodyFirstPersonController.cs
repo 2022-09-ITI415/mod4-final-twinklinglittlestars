@@ -10,8 +10,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
         public Text timerText;
-        private float startTimer;
-        public bool finished = false;
+        private float secondsCount;
+        private int minuteCount;
+        private int hourCount;
+        //private float startTimer;
+        public static bool finished = false;
 
         public Text countText;
         public GameObject winTextObject;
@@ -140,12 +143,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
-            float t = Time.time - startTimer;
+            UpdateTimerUI();
+            //float t = Time.time - startTimer;
 
-            string minutes = "Time: " + ((int) t / 60).ToString();
-            string seconds = (t % 60).ToString("f2");
+            //string minutes = "Time: " + ((int) t / 60).ToString();
+            //string seconds = (t % 60).ToString("f2");
 
-            timerText.text = minutes + ":" + seconds;
+            //timerText.text = minutes + ":" + seconds;
             RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
@@ -154,6 +158,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        public void UpdateTimerUI()
+        {
+            // set timer UI
+            secondsCount += Time.deltaTime;
+            timerText.text = "Time: " + hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s";
+            if(secondsCount >= 60)
+            {
+                minuteCount++;
+                secondsCount = 0;
+            } else if (minuteCount >= 60) {
+                hourCount++;
+                minuteCount = 0;
+            }
+        }
 
         /*void SetTimerText()
         {
@@ -163,13 +181,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             }
         }*/
-        void SetCountText()
+        void SetCountText() 
         {
             countText.text = "Bunnies Found: " + (count);
             if(count >= 4)
             {
                 winTextObject.SetActive(true);
-                finished = true;
+                //finished = true;
             }
         }
 
@@ -305,6 +323,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             other.gameObject.SetActive(false);
             count = count + 1;
             SetCountText();
+            if(count == 4)
+            {
+                finished = true;
+                Time.timeScale = 0;
+            }
+
         }
     }
     }
